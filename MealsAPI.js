@@ -1,6 +1,4 @@
 
-
-
 document.addEventListener(' DOMContentLoaded', () => {
     const searchBtn = document.getElementById('search-btn');
     const searchInput = document.getElementById('search-input');
