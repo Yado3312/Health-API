@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
-
+    <title>thyHealth</title>
+    
+    <link rel="icon" type="image/x-icon" href="assets/newHeartLogo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Berkshire+Swash&family=Gloria+Hallelujah&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
@@ -20,37 +21,58 @@
         </div>
 
         <div class="right-section display-flex-center">
-            <h1 class="landing-title">Find Your New <br> Routine And Make <br> Your New Life.</h1>
+            <h1 class="landing-title">Find Your New <br> Routine And Make <br> Your New Life. <br> <br></h1>
             <h1 class="landing-title">It Is Never Too Late To Work On Yourself.</h1>
-            <a href="" class="new-life-button display-flex-center">New Life</a>
+            <a href="#API-selection" class="new-life-button display-flex-center">New Life</a>
         </div>
     </section>
 
-
+    <div class="section-divider"></div>
     <!-- BRO, ESTOS SON LOS CONTENEDORES PARA LA INFORMACION de todas las apis-->
 
-    <div class="container">
-        <h1>Health App</h1>
-        <p>Actualizado: <span id="updateDate"></span></p>
+    <section id="API-selection" class="select-API-container display-flex-center">
+        <h1 class="landing-title">Choose your preference</h1>
+        <h3>Actualizado: <span id="updateDate"></span></h3>
         
-        <div class="tabs">
-            <button class="tab-button active" data-tab="exercises">Ejercicios</button>
-            <button class="tab-button" data-tab="medicines">Medicamentos</button>
-            <button class="tab-button" data-tab="meals">Comidas</button>
+        <div class="tabs display-flex-center">
+            <img    class="wave-background" src="assets/red-blue-waves.png" alt="red-waves">
+
+            <button class="tab-button display-flex-center active" data-tab="exercises">
+                <h2>Work out</h2>
+                <p>Mejora tu alimentación con planes adaptados a tu estilo de vida.</p>
+                <img src="assets/workout.png" alt="icon">
+            </button>
+            <button class="tab-button display-flex-center" data-tab="medicines">
+                <h2>Medicine</h2>
+                <p>Mejora tu alimentación con planes adaptados a tu estilo de vida.</p>
+                <img src="assets/drugs.png" alt="icon">
+            </button>
+            <button class="tab-button display-flex-center" data-tab="meals">
+                <h2>Meals</h2>
+                <p>Mejora tu alimentación con planes adaptados a tu estilo de vida.</p>
+                <img src="assets/diet.png" alt="icon">
+            </button>
         </div>
-        
+    </section>
+    
+    <section id="APIS" class="container">
+
         <!-- Pestana de Ejercicios -->
-        <div id="exercises" class="tab-content active">
-            <div class="search-section">
-                <input type="text" id="search-input" placeholder="Buscar ejercicios...">
-                <select id="search-type">
-                    <option value="name">Por nombre</option>
-                    <option value="target">Por grupo muscular</option>
-                    <option value="equipment">Por equipo</option>
-                </select>
-                <button id="search-btn">Buscar</button>
-                <select id="body-part-filter"> <option value="">Todas las partes del cuerpo</option> </select>
-                <select id="equipment-filter"> <option value="">Todos los equipos</option> </select>
+        <div id="exercises" class="tab-content">
+            <div class="search-section display-flex-center">
+                <div class="search-container display-flex-center">
+                    <input type="text" id="search-input" placeholder="Buscar ejercicios...">
+                    <button id="search-btn"></button>
+                </div>
+                <div class="exercise-filters display-flex-center">
+                    <select id="search-type">
+                        <option value="name">Por nombre</option>
+                        <option value="target">Por grupo muscular</option>
+                        <option value="equipment">Por equipo</option>
+                    </select>
+                    <select id="body-part-filter"> <option value="">Todas las partes del cuerpo</option> </select>
+                    <select id="equipment-filter"> <option value="">Todos los equipos</option> </select>
+                </div>
             </div>
             <div id="exercises-container" class="results-grid"></div>
         </div>
@@ -60,7 +82,7 @@
             <div class="search-section">
                 <input type="text" id="drugSearch" placeholder="Buscar medicamentos o reacciones...">
                 <div class="radio-group">
-                    <label><input type="radio" name="searchType" value="drug" checked> Medicam</label>
+                    <label><input type="radio" name="searchType" value="drug" checked> Medicamento</label>
                     <label><input type="radio" name="searchType" value="reaction"> Reaccion adversa</label>
                 </div>
                 <button id="searchButton">Buscar</button>
@@ -73,12 +95,12 @@
         <!-- Pestana de Comidas -->
         <div id="meals" class="tab-content">
             <div class="search-section">
-                <input type="text" id="meal-search-input" placeholder="INGreDIENTE BUSCAR...">
+                <input type="text" id="meal-search-input" placeholder="Buscar ingrediente...">
                 <button id="meal-search-btn">Buscar Comidas</button>
             </div>
             <div id="meals-container" class="results-grid"></div>
         </div>
-    </div>
+    </section>
     
     <!-- Modal para detalles de medicamentos -->
     <div class="modal fade" id="detailsModal" tabindex="-1" aria-hidden="true">
