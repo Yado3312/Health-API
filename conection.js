@@ -204,6 +204,8 @@ async function fetchExercises(url) {
     }
 }
 
+// DISPLAY Ejercicios ------------------------- EJERCICIOS ============================ WORKOUT =======================
+
 function displayExercises(exercises) {
     const exercisesContainer = document.getElementById('exercises-container');
     exercisesContainer.innerHTML = '';
@@ -289,12 +291,12 @@ function displayFDAResults(results, searchTerm, searchType) {
         
         if (item.patient && item.patient.reaction) {adverseReactions = item.patient.reaction.map(r => r.reactionmeddrapt).filter(Boolean);}
         
-        cardContent += ` <div> <h5>Caso #${index + 1}</h5> <div>`;
+        cardContent += `<h5>Caso #${index + 1}</h5>`;
         
         if (drugs.length > 0) {
             cardContent += `
                 <h6><i class="fas fa-pills"></i> Medicamento(s):</h6>
-                <div> ${drugs.map(drug => `<span>${drug}</span>`).join('')} </div>`;
+                <div> ${drugs.map(drug => `<span class="types-of-drugs">${drug} </span>`).join('')} </div>`;
         }
         
         if (adverseReactions.length > 0) {
@@ -309,7 +311,7 @@ function displayFDAResults(results, searchTerm, searchType) {
         cardContent += `
                 </div>
                 <div>
-                    <button onclick="showDetails(${index})"> <i class="fas fa-info-circle"></i> Ver detalles </button>
+                    <button class="see-details-btn" onclick="showDetails(${index})"> <i class="fas fa-info-circle"></i> Ver detalles </button>
                 </div>
             </div> `;
         
@@ -451,6 +453,8 @@ async function fetchMealsByIngredient(ingredient) {
     }
 }
 
+// DISPLAY MEALS COMIDAS - APPENCHILD DE LAS COMIDAS - TARJETAS DE COMIDA =========================================================================
+
 function displayMeals(meals) {
     const mealsContainer = document.getElementById('meals-container');
     mealsContainer.innerHTML = '';
@@ -468,11 +472,11 @@ function displayMeals(meals) {
         }
         
         mealCard.innerHTML = `
-            <img src="${meal.strMealThumb}" alt="${meal.strMeal}">
-            <div>
-                <h3>${meal.strMeal}</h3>
-                <p><strong>Categora:</strong> ${meal.strCategory}</p>
-                <p><strong>areea :</strong> ${meal.strArea}</p>
+            <img class="meals-img" src="${meal.strMealThumb}" alt="${meal.strMeal}">
+            <div class="meal-card-body">
+                <h3 class="meals-h3" >${meal.strMeal}</h3>
+                <p><strong>Categoria:</strong> ${meal.strCategory}</p>
+                <p><strong>Area :</strong> ${meal.strArea}</p>
                 <details>
                     <summary>Ver ingredientes</summary>
                     <ul> ${ingredients.map(ing => `<li>${ing}</li>`).join('')} </ul>
@@ -481,7 +485,7 @@ function displayMeals(meals) {
                     <summary>Ver instrucciones</summary>
                     <p>${meal.strInstructions}</p>
                 </details>
-                ${meal.strYoutube ? `<a href="${meal.strYoutube}" target="_blank">VIDEAZO DE YOUTUBE</a>` : ''}
+                ${meal.strYoutube ? `<a  class="youtube-btn display-flex-center" href="${meal.strYoutube}" target="_blank">Tutorial</a>` : ''}
             </div> `;
         
         mealsContainer.appendChild(mealCard);

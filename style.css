@@ -93,6 +93,12 @@ h3 {
     box-shadow: rgba(36, 3, 3, 0.89) 0 0 20px 1px;
 }
 
+.divider-API-APIS {
+    width: 100%;
+    height: 10h;
+    background: linear-gradient(180deg, #e72c3dff, #860718ff);
+}
+
 /* ================================== DISPLAY API SECTION =================================== */
 
 .select-API-container {
@@ -101,7 +107,17 @@ h3 {
     background: linear-gradient(180deg, #860718ff, #e72c3dff);
     margin: 0;
     flex-direction: column;
-    margin-bottom: 5rem;
+    /* margin-bottom: 5rem; */
+}
+
+#APIS {
+    width: 100%;
+    height: auto;
+    margin: 0; padding: 0;
+}
+
+.tab-content {
+    padding-top: 4rem;
 }
 
 .tabs {
@@ -140,6 +156,7 @@ h3 {
 .active {
     box-shadow: 0 0px 42px 8px rgba(224, 154, 227, 0.916);
     border: 4px solid;
+    display: block;
 }
 
 .tab-button img {
@@ -164,7 +181,7 @@ h3 {
     width: 80%;
 }
 
-#search-btn {
+.search-btn {
     border-radius: 50%;
     text-align: center;
     box-shadow: rgba(21, 9, 9, 0.669) 0 0 12px 3px;
@@ -178,12 +195,12 @@ h3 {
     transition: ease-in-out 0.2s;
 }
 
-#search-btn:hover {
+.search-btn:hover {
     background-color: rgb(235, 231, 231);
     transform: scale(1.05);
 }
 
-#search-input {
+.search-input {
     background-color: white;
     border-radius: 5vh;
     text-align: center;
@@ -206,4 +223,233 @@ select {
     background-color: rgb(248, 154, 82);
     color: white;
     text-align: center;
+}
+
+/* ============================================= ESTILOS DE LASS TARJETAS DE COMIDAS ===================================== */
+
+/* <img class="meals-img" src="${meal.strMealThumb}" alt="${meal.strMeal}">
+<div>
+    <h3 class="meals-h3" >${meal.strMeal}</h3>
+    <p><strong>Categora:</strong> ${meal.strCategory}</p>
+    <p><strong>areea :</strong> ${meal.strArea}</p>
+    <details>
+        <summary>Ver ingredientes</summary>
+        <ul> ${ingredients.map(ing => `<li>${ing}</li>`).join('')} </ul>
+    </details>
+    <details>
+        <summary>Ver instrucciones</summary>
+        <p>${meal.strInstructions}</p>
+    </details>
+    ${meal.strYoutube ? `<a  class="youtube-btn" href="${meal.strYoutube}" target="_blank">Watch on YouTube!</a>` : ''}
+</div> `; */
+
+/* ========================================================================================================================= */
+
+.results-grid {
+    /* background-color: bisque; */
+    width: 100%;
+    height: auto;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5rem;
+    flex-wrap: wrap;
+    padding: 2rem;
+    margin-top: 5rem;
+}
+
+.meal-card {
+    height: max-content;
+    height: auto;
+    width: 25rem;
+    background-color: white;
+    border-radius: 5vh;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 40% 60%;
+    justify-items: center;
+    align-items: center;
+
+    border: 1px solid rgba(255, 255, 255, 0.101);
+    background-color: rgba(255, 255, 255, 0.39);
+    box-shadow: 0 9px 32px 0 rgba(210, 210, 212, 0.37);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border-radius: 4rem;
+    transition: ease-in-out 0.2s;
+}
+
+.meal-card:hover {
+    transform: scale(1.035);
+    box-shadow: 0 0 20px 0 rgb(255, 255, 255, 0.6);
+
+}
+
+.meals-h3 {
+    color: rgb(255, 255, 255);
+    font-size: 2rem;
+    transform: translateY(-20%);
+    filter: drop-shadow(black 1px 1px 1px);
+}
+
+.meals-img {
+    height: 30vh;
+    width: auto;
+    border-radius: 5vh;
+}
+
+.meal-card-body {
+    height: 95%;
+    width: 90%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.youtube-btn {
+    height: 5vh;
+    width: 15vh;
+    background-color: red;
+    border-radius: 5vh;
+    text-decoration: none;
+    color: white;
+    font-family: "Montserrat", sans-serif;
+    text-align: center; 
+    transition: ease-in-out 0.2s; 
+}
+
+.youtube-btn:hover {
+    box-shadow: black 1px 1px 3px;
+    transform: scale(1.04);
+}
+
+summary, ul, li {
+    color: white;
+    font-family: "Montserrat", sans-serif;
+}
+
+
+/* ============================================= ESTILOS DE LASS TARJETAS DE COMIDAS ===================================== */
+
+.health-card {
+    background-color: white;
+    height: auto;
+    width: 40rem;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 8vh;
+    padding: 3rem;
+    box-shadow: black 1px 1px 10px;
+}
+
+.see-details-btn {
+    border-radius: 3vh;
+    border: none;
+    background-color: azure;
+    box-shadow: rgb(17, 17, 17) 1px 1px 5px;
+}
+
+/* ========================================================================================================================= */
+
+@media screen and (max-width: 768px) {
+
+    #landing-section {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 80vh;
+    }
+
+    .right-section {
+        height: 90%;
+        width: 100%;
+        margin-left: 5rem;
+        gap: 5vh;
+    }
+
+    .left-section {
+        height: 10%;
+    }
+
+    .left-section img {
+        height: 24rem; width: auto;
+        z-index: 0;
+        position: absolute;
+        filter: opacity(0.5);
+        transform: translateY(80%);
+    }
+
+    .new-life-button {
+        margin: 0 auto;
+    }
+    
+    .landing-title {
+        font-size: 2.5rem;
+        text-align: center;
+    }
+    .new-life-button {
+        width: 20vh;
+        height: 6vh;
+        font-size: 0.9rem;
+    }
+
+    .tabs {
+        flex-direction: column;
+    }
+    .tab-button {
+        width: 80%;
+        height: auto;
+        margin: 1rem 0;
+    }
+
+    .results-grid {
+        flex-direction: column;
+        gap: 2rem;
+        padding: 1rem;
+    }
+
+    .search-container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    .exercise-filters {
+        flex-wrap: wrap;
+        width: 100%;
+    }
+}
+
+/* ================================================= DISPLAY EXRCIEECES EJERCICIOS ===================================== */
+
+/* 
+
+<img src="${exercise.gifUrl}" alt="${exercise.name}">
+            <div>
+                <h3>${exercise.name}</h3>
+                <p><strong>Grupo muscular:</strong> ${exercise.target}</p>
+                <p><strong>Parte del cuerpo suculento:</strong> ${exercise.bodyPart}</p>
+                <p><strong>Equipo:</strong> ${exercise.equipment}</p>
+                <details>
+                    <summary>Ver innstructions</summary>
+                    <ol>  ${exercise.instructions.map(inst => `<li>${inst}</li>`).join('')} </ol>
+                </details>
+            </div> `;
+
+*/
+
+.exercise-card {
+    background-color: white;
+    height: auto;
+    width: 40rem;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 8vh;
+    padding: 3rem;
+    box-shadow: black 1px 1px 10px;
 }

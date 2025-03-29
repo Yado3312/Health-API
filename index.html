@@ -37,7 +37,7 @@
         <div class="tabs display-flex-center">
             <img    class="wave-background" src="assets/red-blue-waves.png" alt="red-waves">
 
-            <button class="tab-button display-flex-center active" data-tab="exercises">
+            <button class="tab-button display-flex-center" data-tab="exercises">
                 <h2>Work out</h2>
                 <p>Mejora tu alimentación con planes adaptados a tu estilo de vida.</p>
                 <img src="assets/workout.png" alt="icon">
@@ -55,14 +55,16 @@
         </div>
     </section>
     
-    <section id="APIS" class="container">
+    <div class="divider-API-APIS"></div>
+
+    <section id="APIS">
 
         <!-- Pestana de Ejercicios -->
-        <div id="exercises" class="tab-content">
+        <div id="exercises" class="tab-content display-none">
             <div class="search-section display-flex-center">
                 <div class="search-container display-flex-center">
-                    <input type="text" id="search-input" placeholder="Buscar ejercicios...">
-                    <button id="search-btn"></button>
+                    <input type="text" id="search-input" class="search-input" placeholder="Buscar ejercicios...">
+                    <button id="search-btn" class="search-btn" ></button>
                 </div>
                 <div class="exercise-filters display-flex-center">
                     <select id="search-type">
@@ -78,14 +80,14 @@
         </div>
         
         <!-- Pestana de Medicamentos -->
-        <div id="medicines" class="tab-content">
-            <div class="search-section">
-                <input type="text" id="drugSearch" placeholder="Buscar medicamentos o reacciones...">
+        <div id="medicines" class="tab-content display-none">
+            <div class="search-section display-flex-center">
+                <input type="text" id="drugSearch" class="search-input" placeholder="Buscar medicamentos o reacciones...">
                 <div class="radio-group">
                     <label><input type="radio" name="searchType" value="drug" checked> Medicamento</label>
                     <label><input type="radio" name="searchType" value="reaction"> Reaccion adversa</label>
                 </div>
-                <button id="searchButton">Buscar</button>
+                <button id="searchButton" class="search-btn" ></button>
             </div>
             <div id="loading" style="display: none;"> <div class="spinner">Cargando...</div></div>
             <div id="resultInfo"></div>
@@ -93,10 +95,12 @@
         </div>
         
         <!-- Pestana de Comidas -->
-        <div id="meals" class="tab-content">
-            <div class="search-section">
-                <input type="text" id="meal-search-input" placeholder="Buscar ingrediente...">
-                <button id="meal-search-btn">Buscar Comidas</button>
+        <div id="meals" class="tab-content display-none">
+            <div class="search-section display-flex-center">
+                <div class="search-container display-flex-center">
+                    <input type="text" id="meal-search-input" class="search-input" placeholder="Buscar ingrediente...">
+                    <button id="meal-search-btn" class="search-btn"></button>
+                </div>
             </div>
             <div id="meals-container" class="results-grid"></div>
         </div>
