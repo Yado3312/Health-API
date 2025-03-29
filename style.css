@@ -409,7 +409,7 @@ summary, ul, li {
 
     .results-grid {
         flex-direction: column;
-        gap: 2rem;
+        gap: 6rem;
         padding: 1rem;
     }
 
