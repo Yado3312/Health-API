@@ -441,8 +441,8 @@ summary, ul, li {
 
 */
 
-.exercise-card {
-    background-color: white;
+.exercise-card { 
+    background-color: black;
     height: auto;
     width: 40rem;
     display: flex;

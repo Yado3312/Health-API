@@ -1,6 +1,6 @@
 // APIS LINKS y KEYS.
 const EXERCISE_API_URL = 'https://exercisedb.p.rapidapi.com';
-const EXERCISE_API_KEY = '60ebdf900bm6b055ae3b57eaep105652jsn5075b74b2a71'; 
+const EXERCISE_API_KEY = '60ebdf900bmsh96b055ae3b57eaep105652jsn5075b74b2a71'; 
 const FDA_API_URL = 'https://api.fda.gov/drug/event.json';
 const MEAL_API_URL = 'https://www.themealdb.com/api/json/v1/1';
 
@@ -9,7 +9,8 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('updateDate').textContent = new Date().toLocaleDateString('es-ES');
     
     // Manejo de pestanas
-    document.querySelectorAll('.tab-button').forEach(button => {
+    // Usamos query selector para poder seleccionar el elemento desde el css 
+    document.querySelectorAll('.tab-button').forEach(button => { // Dentro de un boton insertamos una funcion la cual nos permite ocultar y activar los botones
         button.addEventListener('click', function() {
 
             // Ocultar todos los contenidos de pestanas
@@ -19,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('.tab-button').forEach(btn => {  btn.classList.remove('active'); });
             
             // Mostrar la pestana seleccionada
-            const tabId = this.getAttribute('data-tab');
+            const tabId = this.getAttribute('data-tab'); // Obtenemos el id de nuestro elemento del html datatab 
             document.getElementById(tabId).classList.add('active');
             this.classList.add('active');
         });
@@ -35,6 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function initExerciseTab() {
+    // hacemsos todos los getters para los id del html
     const searchBtn = document.getElementById('search-btn');
     const searchInput = document.getElementById('search-input');
     const searchType = document.getElementById('search-type');
@@ -42,13 +44,14 @@ function initExerciseTab() {
     const equipmentFilter = document.getElementById('equipment-filter');
     
     // Cargar filtros al inicio
-    loadExerciseFilters();
+    loadExerciseFilters(); // metodo para poder cargar los filtros de ejercicio
     
     // Manejar busqueda
     searchBtn.addEventListener('click', handleExerciseSearch);
+    // hacemso que el enter pueda ser util
     searchInput.addEventListener('keypress', (e) => {  if (e.key === 'Enter') handleExerciseSearch(); });
     
-    // Manejar cambios en los filtros
+    // Manejar cambios en los filtros LOS REGISTRAMOS
     bodyPartFilter.addEventListener('change', handleExerciseFilterChange);
     equipmentFilter.addEventListener('change', handleExerciseFilterChange);
     
@@ -64,16 +67,16 @@ function initMedicineTab() {
 
 function initMealTab() {
     const searchBtn = document.getElementById('meal-search-btn');
-    const searchInput = document.getElementById('meal-search-input');
+    const searchInput = document.getElementById('meal-search-input'); // Barra de busqueda
     
     // Cargar comidas al azar al inicio
     fetchRandomMeals();
     
     // Manejar busqueda
     searchBtn.addEventListener('click', () => {
-        const ingredient = searchInput.value.trim();
-        if (ingredient) { fetchMealsByIngredient(ingredient); } 
-        else { alert('Por favor ingresa un ingrediente'); }
+        const ingredient = searchInput.value.trim(); // Usando trim eliminamos los espacios en blanco de los ingredientes.
+        if (ingredient) { fetchMealsByIngredient(ingredient); } // verificamossi el ingrediente existe
+        else { alert('Por favor ingresa un ingrediente'); } // Manejo de errores
     });
     
     // Habilitar el enter para la nisqueda XD 
@@ -86,23 +89,26 @@ function initMealTab() {
 async function loadExerciseFilters() {
     try {
         // Cargar grupos musculares
+        // SOLICITUD HTTP para poder cargar la data 
         const bodyPartsResponse = await fetch(`${EXERCISE_API_URL}/exercises/bodyPartList`, {
             headers: {
-                    'X-RapidAPI-Key': EXERCISE_API_KEY,
+                'X-RapidAPI-Key': EXERCISE_API_KEY,
                 'X-RapidAPI-Host': 'exercisedb.p.rapidapi.com'
             }
         });
-        const bodyParts = await bodyPartsResponse.json();
+
+        const bodyParts = await bodyPartsResponse.json(); // Convertir la respuesta a un objeto JSON
         
         const bodyPartFilter = document.getElementById('body-part-filter');
         bodyParts.forEach(part => {
-            const option = document.createElement('option');
-            option.value = part;
-            option.textContent = part.charAt(0).toUpperCase() + part.slice(1);
-            bodyPartFilter.appendChild(option);
+            const option = document.createElement('option'); // creamos una nueva opcion por cada parte del cuerpo
+            option.value = part; // restablecemos el valor por la part 
+            option.textContent = part.charAt(0).toUpperCase() + part.slice(1); // Conversion de las letras para la presentacion 
+            bodyPartFilter.appendChild(option); // anadimos la opcion al body 
         });
         
-        // Cargar equipos
+        // Cargar equipos 
+        // Request UR L
         const equipmentResponse = await fetch(`${EXERCISE_API_URL}/exercises/equipmentList`, {
             headers: {
                 'X-RapidAPI-Key': EXERCISE_API_KEY,
@@ -118,25 +124,25 @@ async function loadExerciseFilters() {
             option.textContent = equip.charAt(0).toUpperCase() + equip.slice(1);
             equipmentFilter.appendChild(option);
         });
-    } catch (error) { console.error('Error al cargar filtros:', error); }
+    } catch (error) { console.error('Error al cargar filtros:', error); } // son 3 filtros tons
 }
 
 function handleExerciseSearch() {
-    const searchTerm = document.getElementById('search-input').value.trim();
+    const searchTerm = document.getElementById('search-input').value.trim(); // usamos trim para eliminar espacios en blanco y poder buscar los elementos
     const searchType = document.getElementById('search-type').value;
     
     if (!searchTerm) { alert('Por favor BUSCA ALGO'); return; }
     
-    if (searchType === 'name') { fetchExercisesByName(searchTerm); } 
-    else if (searchType === 'target') { fetchExercisesByTarget(searchTerm); } 
-    else if (searchType === 'equipment') { fetchExercisesByEquipment(searchTerm); }
+    if (searchType === 'name') { fetchExercisesByName(searchTerm); } // estan las categorias de busqueda
+    else if (searchType === 'target') { fetchExercisesByTarget(searchTerm); } // buscamos por el nombre o el target
+    else if (searchType === 'equipment') { fetchExercisesByEquipment(searchTerm); } // buscamos por el equipo
 }
 
 function handleExerciseFilterChange() {
     const bodyPart = document.getElementById('body-part-filter').value;
     const equipment = document.getElementById('equipment-filter').value;
     
-    if (bodyPart || equipment) {
+    if (bodyPart || equipment) { // si hay algun filtro activo para que no truene 
         let url = `${EXERCISE_API_URL}/exercises?`;
         if (bodyPart) url += `bodyPart=${bodyPart}`;
         if (bodyPart && equipment) url += '&';
@@ -151,39 +157,41 @@ async function fetchRandomExercises() {
         const exercisesContainer = document.getElementById('exercises-container');
         exercisesContainer.innerHTML = '<p>Cargando ejercicios...</p>';
         
+        // reqiest de ;os ejercicios qwue van a llegar al usuario de manear aleatporia
         const response = await fetch(`${EXERCISE_API_URL}/exercises`, {
             headers: {
                 'X-RapidAPI-Key': EXERCISE_API_KEY,
                 'X-RapidAPI-Host': 'exercisedb.p.rapidapi.com'
             }
         });
-        const data = await response.json();
+        const data = await response.json(); // convertimos a un formato json 
         
         // Mostrar just 12 ejercicios aleatorios
-        const randomExercises = data.sort(() => 0.5 - Math.random()).slice(0, 12);
-        displayExercises(randomExercises);
+        const randomExercises = data.sort(() => 0.5 - Math.random()).slice(0, 12); // aqui volvemos la busqeuda aleatoria
+        displayExercises(randomExercises); // mstramos los ejercicios 
     } catch (error) {
         console.error('Error al obtener ejercicios:', error);
-        exercisesContainer.innerHTML = '<p>Error al cargar los ejercicios. Intenta mas tarde</p>';
+        exercisesContainer.innerHTML = '<p>Error al cargar los ejercicios. Intenta mas tarde</p>'; // manejo de errores
     }
 }
 
+// Funcion para mostrar los ejercicios por nambe
 async function fetchExercisesByName(name) {
     const url = `${EXERCISE_API_URL}/exercises/name/${name}`;
     await fetchExercises(url);
 }
-
+// Funcion para mostrar los ejercicios por target 
 async function fetchExercisesByTarget(target) {
     const url = `${EXERCISE_API_URL}/exercises/target/${target}`;
     await fetchExercises(url);
 }
-
+// Funcion para mostrar los ejercicios por  por equipment 
 async function fetchExercisesByEquipment(equipment) {
     const url = `${EXERCISE_API_URL}/exercises/equipment/${equipment}`;
     await fetchExercises(url);
 }
 
-async function fetchExercises(url) {
+async function fetchExercises(url) { // funcion para mostrar los ejercicios por body part
     try {
         const exercisesContainer = document.getElementById('exercises-container');
         exercisesContainer.innerHTML = '<p>Buscando ejercicios...</p>';
@@ -197,7 +205,7 @@ async function fetchExercises(url) {
         const exercises = await response.json();
         
         if (exercises.length > 0) { displayExercises(exercises); } 
-        else { exercisesContainer.innerHTML = '<p>No se encontraron ejercicios con esos criterios.</p>'; }
+        else { exercisesContainer.innerHTML = '<p>No se encontraron ejercicios con esos criterios.</p>'; } // manejo de errores 
     } catch (error) {
         console.error('Error al buscar ejercicios:', error);
         exercisesContainer.innerHTML = '<p>Error al buscar ejercicios. Intenta mas tarde.</p>';
@@ -210,9 +218,9 @@ function displayExercises(exercises) {
     const exercisesContainer = document.getElementById('exercises-container');
     exercisesContainer.innerHTML = '';
     
-    if (!exercises || exercises.length === 0) { exercisesContainer.innerHTML = '<p>No se encontraron ejercicios.</p>'; return; }
+    if (!exercises || exercises.length === 0) { exercisesContainer.innerHTML = '<p>No se encontraron ejercicios.</p>'; return; } // en caso de que no se vea ningun ejercicio.
     
-    exercises.forEach(exercise => {
+    exercises.forEach(exercise => { // printeamos con un inner html la informacion devuelta de cada ejercicio. 
         const exerciseCard = document.createElement('div');
         exerciseCard.className = 'exercise-card';
         
@@ -229,14 +237,14 @@ function displayExercises(exercises) {
                 </details>
             </div> `;
         
-        exercisesContainer.appendChild(exerciseCard);
+        exercisesContainer.appendChild(exerciseCard); // anadimos 
     });
 }
 
 // MEDICAMENTOS 
 async function searchFDA() {
     const searchTerm = document.getElementById('drugSearch').value.trim();
-    const searchType = document.querySelector('input[name="searchType"]:checked').value;
+    const searchType = document.querySelector('input[name="searchType"]:checked').value; // habilitamos la barra de busqueda
     
     if (!searchTerm) { alert('Por favor BUSCA ALGO'); return; }
     
@@ -253,16 +261,16 @@ async function searchFDA() {
         else { url = `${FDA_API_URL}?search=patient.reaction.reactionmeddrapt:"${encodeURIComponent(searchTerm)}"&limit=10`;}
         
         const response = await fetch(url);
-        const data = await response.json();
+        const data = await response.json(); // onvertimos a un objeto json 
         
-        if (!response.ok) { throw new Error(data.error.message || 'Error al consultar la API'); }
+        if (!response.ok) { throw new Error(data.error.message || 'Error al consultar la API'); } // manejo de error 
         
         displayFDAResults(data.results, searchTerm, searchType);
     } catch (error) {
         console.error('Error:', error);
         document.getElementById('resultsContainer').innerHTML = `
             <div> <div> <i class="fas fa-exclamation-triangle"></i> Error al obtener datos: ${error.message} </div> </div>`;
-    } 
+    }  // mostramos el ERRORRR
     finally { document.getElementById('loading').style.display = 'none'; }
 }
 
@@ -270,16 +278,15 @@ function displayFDAResults(results, searchTerm, searchType) {
     const resultsContainer = document.getElementById('resultsContainer');
     
     if (!results || results.length === 0) {
-        resultsContainer.innerHTML = `
-            <div> <div> No se encontraron resultados para "${searchTerm}" </div> </div>`;
+        resultsContainer.innerHTML = ` <div> <div> No se encontraron resultados para "${searchTerm}" </div> </div>`;
         return;
-    }
+    } // en caso que no se hayan encontrado resultados 
     
     document.getElementById('resultInfo').innerHTML = ` <p>Mostrando ${results.length} resultados para "${searchTerm}"</p>`;
     
     resultsContainer.innerHTML = '';
     
-    results.forEach((item, index) => {
+    results.forEach((item, index) => { // recorremos los resultados
         const card = document.createElement('div');
         card.className = 'health-card';
         
@@ -439,10 +446,10 @@ async function fetchMealsByIngredient(ingredient) {
         if (data.meals) {
             // Obtener detalles completos de cada comida
             const mealPromises = data.meals.map(meal => 
-                fetch(`${MEAL_API_URL}/lookup.php?i=${meal.idMeal}`).then(res => res.json())
+                fetch(`${MEAL_API_URL}/lookup.php?i=${meal.idMeal}`).then(res => res.json()) //  Obtener detalles completos de cada comida
             );
-            const mealDetails = await Promise.all(mealPromises);
-            const fullMeals = mealDetails.map(detail => detail.meals[0]);
+            const mealDetails = await Promise.all(mealPromises); //  Obtener detalles completos de cada comida por medio de la promesa
+            const fullMeals = mealDetails.map(detail => detail.meals[0]); // aqui conjuntamos las comidas completas con los detalles
             
             displayMeals(fullMeals);
         } 
@@ -461,16 +468,16 @@ function displayMeals(meals) {
     
     if (!meals || meals.length === 0) { mealsContainer.innerHTML = '<p>No se encontraron comidas.</p>'; return;}
     
-    meals.forEach(meal => {
+    meals.forEach(meal => { //  Cada comida es un objeto
         const mealCard = document.createElement('div');
         mealCard.className = 'meal-card';
         
         // Extraer los ingredientes y medidas 
-        const ingredients = [];
+        const ingredients = []; 
         for (let i = 1; i <= 20; i++) {
-            if (meal[`strIngredient${i}`]) { ingredients.push(`${meal[`strIngredient${i}`]} - ${meal[`strMeasure${i}`]}`); }
+            if (meal[`strIngredient${i}`]) { ingredients.push(`${meal[`strIngredient${i}`]} - ${meal[`strMeasure${i}`]}`); } // iteramos entre cada una dela comida
         }
-        
+        // inner donde mostramos donde es que la comida se acomoda estructura htl 
         mealCard.innerHTML = `
             <img class="meals-img" src="${meal.strMealThumb}" alt="${meal.strMeal}">
             <div class="meal-card-body">
@@ -487,7 +494,7 @@ function displayMeals(meals) {
                 </details>
                 ${meal.strYoutube ? `<a  class="youtube-btn display-flex-center" href="${meal.strYoutube}" target="_blank">Tutorial</a>` : ''}
             </div> `;
-        
+        // el join une los eementos ed un array.
         mealsContainer.appendChild(mealCard);
     });
 }
